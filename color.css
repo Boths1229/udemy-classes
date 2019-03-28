@@ -1,0 +1,100 @@
+body {
+    font-family: sans-serif;
+    color: rgba(0,0,0,.5);
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: .5em;
+    top: 15%;
+    background: linear-gradient(to right, red ,yellow);
+}
+
+h1 {
+    font: 600 3.5em sans-serif;
+    color: rgba(0,0,0,.5);
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: .5em;
+    width: 100%;
+}
+
+h2 {
+    font: 900 1em sans-serif;
+    color: rgba(0,0,0,.5);
+    text-align: center;
+    text-transform: none;
+    letter-spacing: 0.01em;
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <title>Mini App</title>
+
+    <style>
+      
+      body {
+        background: lavender;
+        margin: 0px;
+        overflow: hidden;
+      }
+      
+      h2 {
+        text-align: center;
+        margin-bottom: 70px;
+        text-transform: capitalize;
+        
+      }
+      
+      div.user-photo {
+        width: 150px;
+        height: 150px;
+        position: relative;
+        margin: 1em auto;
+        background: #fff;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+         align-items: center;
+        overflow: hidden
+      }
+      
+      .user-photo > img{
+          flex-shrink: 0;
+           min-width: 100%;
+           min-height: 100%
+      
+        
+      }
+      
+    
+      div.details {
+        font-size: 2.3em;
+        margin: 2.5em 0.2em 0.2em 0.2em;
+        color: #fff;
+        padding: 1.1em;
+        min-height: 6em;
+        background: #6200ee;
+      }
+      
+      footer {
+        width: calc(100% - 2em);
+        z-index: 500;
+        position: absolute;
+        bottom: 0;
+        overflow: hidden;
+        display: flex;
+        justify-content: space-between;
+        margin: 0 1em;
+      }
+      
+      footer button.mdc-icon-button {
+        margin: 0.5em;
+        color: white;
+      }
+      
+   

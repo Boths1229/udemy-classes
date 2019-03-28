@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <title>Mini App</title>
+
+    <style>
+      
+      body {
+        background: lavender;
+        margin: 0px;
+        overflow: hidden;
+      }
+      
+      h2 {
+        text-align: center;
+        margin-bottom: 70px;
+        text-transform: capitalize;
+        
+      }
+      
+      div.user-photo {
+        width: 150px;
+        height: 150px;
+        position: relative;
+        margin: 1em auto;
+        background: #fff;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+         align-items: center;
+        overflow: hidden
+      }
+      
+      .user-photo > img{
+          flex-shrink: 0;
+           min-width: 100%;
+           min-height: 100%
+      
+        
+      }
+      
+    
+      div.details {
+        font-size: 2.3em;
+        margin: 2.5em 0.2em 0.2em 0.2em;
+        color: #fff;
+        padding: 1.1em;
+        min-height: 6em;
+        background: #6200ee;
+      }
+      
+      footer {
+        width: calc(100% - 2em);
+        z-index: 500;
+        position: absolute;
+        bottom: 0;
+        overflow: hidden;
+        display: flex;
+        justify-content: space-between;
+        margin: 0 1em;
+      }
+      
+      footer button.mdc-icon-button {
+        margin: 0.5em;
+        color: white;
+      }
+      
+    </style>
+  </head>
+  <body>
+    <h2>chukwuma emmanuel</h2>
+    <div class="user-photo mdc-elevation--z3">
+    <img src='https://via.placeholder.com/150/FFFF00/000000?Text=WebsiteBuilders.com
+
+C/O https://placeholder.com/'></div>
+    
+    <div class="details mdc-elevation--z3"></div>
+    <div class="messages"></div>
+    <footer>
+      <button id="btn-address" class="mdc-icon-button material-icons">favorite</button>
+      <button id="btn-phone" class="mdc-icon-button material-icons">favorite_border</button>
+      <button id="btn-birthdate" class="mdc-icon-button material-icons">face</button>
+    </footer>
+    
+    <script>
+      
+      const notify = (msg) => {
+        const toastr = document.querySelector('.messages');
+        if(!toastr) return;
+        
+        toastr.textContent = msg;
+        if(!toastr.classList.contains('on')) {
+          toastr.classList.add('on');
+        }
+      };
+      
+      const clearNotice = () => {
+        const toastr = document.querySelector('.messages');
+        if(!toastr) return;
+        
+        toastr.textContent = '';
+        toastr.classList.remove('on');
+      };
+      
+      const displayUserPhotoAndName = (data) => {
+        if(!data) return;
+       
+         // add your code here
+        
+        
+        const {results} = data;
+        
+        const [profile] = results;
+        
+        document.querySelector('h2').innerHTML = profile.name['title'] + ' ' + profile.name['last'] + ' ' + profile.name['first'];
+        
+        document.querySelector("img").src = profile.picture['large'];
+       
+        const displayBirthdate = ({dob: {date, age}}) => {
+        
+           document.getElementsByClassName('details')[0].innerText= age + " years old";
+          
+          
+        };
+        
+        displayBirthdate(profile);
+        const displayPhone = ({phone, cell}) => {
+          
+          document.getElementsByClassName('details')[0].innerText= `${phone} / ${cell}`;
+          
+        };
+         
+        const displayAddress = ({location: {street, city, state, postcode, coordinates: {latitude,                             longitude},timezone: {offset, description} } }) => {
+          document.getElementsByClassName('details')[0].innerText= `${street}, ${city}, ${state}`;
+          
+          
+        };
+        
+        displayAddress(profile)
+        
+        const displayExtraUserInfo = (inputData) => {
+  
+          document.getElementById("btn-birthdate").addEventListener("click", () => {
+                displayBirthdate(inputData);
+            
+                });
+          document.getElementById("btn-phone").addEventListener("click", () => {
+                displayPhone(inputData);
+            
+                });
+          document.getElementById("btn-address").addEventListener("click", () => {
+                displayAddress(inputData);
+            
+                });
+        }
+       
+        
+        displayExtraUserInfo(profile);
+        clearNotice();
+      };
+      
+      
+      
+           
+      const getAUserProfile = () => {
+        const api = 'https://randomuser.me/api/';
+        
+        // make API call here
+        fetch('https://randomuser.me/api/').then(function(response) { 
+	      // Convert to JSON
+	      return response.json();
+           }).then(function(data) {
+          
+          displayUserPhotoAndName(data)
+	       
+            }); 
+        
+        notify(`requesting profile data ...`);
+      };
+      
+      const startApp = () => {
+        // invoke the getAUserProfile here
+        getAUserProfile();
+      };
+
+      startApp();
+    </script>
+  </body>
+</html>
